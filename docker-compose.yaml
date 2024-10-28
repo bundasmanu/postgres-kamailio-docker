@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-kamailio}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    command: ["postgres", "-c", "hba_file=/etc/postgresql/pg_hba.conf", "-c", "listen_addresses=*"]
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./psql_data/pg_hba.conf:/etc/postgresql/pg_hba.conf
+      - kamailio-scripts:/docker-entrypoint-initdb.d/
+    depends_on:
+      - kamailio-sql-fetcher
+    networks:
+      common-network:
+        ipv4_address: 172.25.0.2  # Assign a specific IP
+
+  kamailio-sql-fetcher:
+    build:
+      context: ./
+      dockerfile: Dockerfile  # Dockerfile to fetch SQL scripts
+      args:
+        KAM_BRANCH: ${KAM_BRANCH:-upstream/5.8.3}
+    environment:
+      - KAMAILIO_SQL_SCRIPTS_TO_RUN=${KAMAILIO_SQL_SCRIPTS_TO_RUN}
+      - CUSTOM_SQL_SCRIPTS_TO_RUN=${CUSTOM_SQL_SCRIPTS_TO_RUN}
+    container_name: kamailio-sql-fetcher
+    volumes:
+      - kamailio-scripts:/scripts  # Shared volume for scripts that should be executed based on SCRIPTS_TO_RUN env var
+      - ./kamailio_scripts:/all_postgres_db_scripts ## all fetched sql scripts that are available on the repo
+
+volumes:
+  kamailio-scripts: {}
+
+networks:
+  common-network:
+    external: true
