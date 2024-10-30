@@ -1,3 +1,8 @@
+INSERT INTO secfilter (action, type, data) values(0, 0, 'friendly-scanner');
+INSERT INTO secfilter (action, type, data) values(0, 0, 'sipvicious');
+INSERT INTO secfilter (action, type, data) values(0, 0, 'pplsip');
+INSERT INTO secfilter (action, type, data) values(0, 3, '1.1.1.1');
+
 INSERT INTO domain (domain, last_modified) values('xpto.com', now());
 
 INSERT INTO subscriber (username, domain, password) values('1234', 'xpto.com', 'ola');
