@@ -13,4 +13,8 @@ INSERT INTO dispatcher (setid, destination, description) values(2, 'sip:172.25.0
 
 INSERT INTO dispatcher (setid, destination, description) values(2, 'sip:172.25.0.5:5060', 'Registrar Server B');
 
+INSERT INTO dispatcher (setid, destination, description) values(2, 'sip:172.25.0.6:5060', 'Registrar Server C');
+
+INSERT INTO dispatcher (setid, destination, description) values(3, 'sip:172.25.0.10:5070', 'Sems Server');
+
 INSERT INTO htable (key_name, "key_type", value_type, key_value, expires) VALUES('carrier_outbound_dispatch_by_matching_ruri', 0, 1, 1, 0);
