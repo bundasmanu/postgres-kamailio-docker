@@ -23,7 +23,7 @@ services:
       context: ./
       dockerfile: Dockerfile  # Dockerfile to fetch SQL scripts
       args:
-        KAM_BRANCH: ${KAM_BRANCH:-upstream/5.8.3}
+        KAM_BRANCH: ${KAM_BRANCH:-upstream/5.8.6}
     environment:
       - KAMAILIO_SQL_SCRIPTS_TO_RUN=${KAMAILIO_SQL_SCRIPTS_TO_RUN}
       - CUSTOM_SQL_SCRIPTS_TO_RUN=${CUSTOM_SQL_SCRIPTS_TO_RUN}
