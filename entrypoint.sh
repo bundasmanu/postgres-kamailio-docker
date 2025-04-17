@@ -26,7 +26,9 @@ remove_unneeded_sql_scripts() {
 
 # Function to sort and separate Kamailio and custom SQL files for execution
 sort_sql_files() {
-    last_kamailio_index=0
+
+    KAMAILIO_START_INDEX=10000
+    last_kamailio_index=$((KAMAILIO_START_INDEX - 1))
 
     # Process Kamailio scripts
     if [ -n "$KAMAILIO_SQL_SCRIPTS_TO_RUN" ]; then
@@ -40,7 +42,7 @@ sort_sql_files() {
             script_name="${kamailio_scripts[i]}"
             if [ -f "/scripts/$script_name" ]; then
                 echo "Moving $script_name to /scripts_sorted_kamailio/"
-                index=$((i + 1))
+                index=$((KAMAILIO_START_INDEX + i))
                 cp "/scripts/$script_name" "/scripts_sorted_kamailio/${index}_$script_name"
                 last_kamailio_index=$index  # Track the last used index
             fi
@@ -59,7 +61,7 @@ sort_sql_files() {
             script_name="${custom_scripts[i]}"
             if [ -f "/scripts/$script_name" ]; then
                 echo "Moving $script_name to /scripts_sorted_custom/"
-                index=$((last_kamailio_index + i + 1))  # Continue numbering from the last Kamailio script
+                index=$((last_kamailio_index + i + 1))  # Continue numbering
                 cp "/scripts/$script_name" "/scripts_sorted_custom/${index}_$script_name"
             fi
         done
