@@ -1,5 +1,5 @@
 
-INSERT INTO dispatcher (setid, destination, flags, priority, attrs, description) values(1, 'sip:172.25.0.10:5060', 0, 0, 'type=external', 'Provider A');
+INSERT INTO dispatcher (setid, destination, flags, priority, attrs, description) values(1, 'sip:172.25.0.10:5060', 0, 0, 'type=external', 'Provider A'); -- for Asterisk use 172.25.0.20
 
 INSERT INTO dispatcher (setid, destination, flags, priority, attrs, description) values(1, 'sip:172.25.0.11:5060', 0, 0, 'type=external', 'Provider B');
 
