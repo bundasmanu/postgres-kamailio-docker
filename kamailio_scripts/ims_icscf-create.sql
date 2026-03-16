@@ -23,3 +23,4 @@ CREATE INDEX s_cscf_capabilities_idx_capability ON s_cscf_capabilities (capabili
 CREATE INDEX s_cscf_capabilities_idx_id_s_cscf ON s_cscf_capabilities (id_s_cscf);
 
 INSERT INTO version (table_name, table_version) values ('s_cscf_capabilities','1');
+
