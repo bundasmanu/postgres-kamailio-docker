@@ -67,3 +67,17 @@ jobs:
           kubectl get pods -n kamailio-db -o wide || true
           kubectl describe pods -n kamailio-db || true
           kubectl get events -n kamailio-db --sort-by=.metadata.creationTimestamp || true
+          PODS=$(kubectl get pods -n kamailio-db -o jsonpath='{.items[*].metadata.name}' || true)
+
+          for POD in $PODS; do
+            echo "--------------------"
+            echo "POD: $POD"
+
+            echo "== CURRENT LOGS =="
+            kubectl logs -n kamailio-db "$POD" --tail=200 || true
+
+            echo "== PREVIOUS LOGS (CRASHLOOP) =="
+            kubectl logs -n kamailio-db "$POD" --previous --tail=200 || true
+
+            echo "--------------------"
+          done
