@@ -1,0 +1,58 @@
+---
+
+name: Helm Chart Install Test
+
+on:
+    push:
+        branches:
+            - '**'
+        tags:
+            - '**'
+    pull_request:
+        branches:
+            - main
+
+jobs:
+  helm-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v5
+
+      - name: Create k3d cluster
+        run: |
+          curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+          k3d cluster create test --wait
+
+      - name: Create namespace
+        run: |
+          kubectl create ns kamailio-db
+
+      - name: Lint chart
+        run: helm lint helm/kamailio-db
+
+      - name: Template chart
+        run: |
+          helm template kamailio-db helm/kamailio-db \
+            --namespace kamailio-db
+
+      - name: Helm install (automatic ready check)
+        run: |
+          helm upgrade --install kamailio-db helm/kamailio-db \
+          --namespace kamailio-db \
+          --create-namespace \
+          --atomic \
+          --wait \
+          --timeout 90s
+
+      - name: Validate PostgreSQL is working
+        run: |
+          POD=$(kubectl get pods -n kamailio-db -o jsonpath='{.items[0].metadata.name}')
+
+          kubectl exec -n kamailio-db "$POD" -- pg_isready -U postgres
+
+          kubectl exec -n kamailio-db "$POD" -- \
+            psql -U postgres -c "SELECT 1;"

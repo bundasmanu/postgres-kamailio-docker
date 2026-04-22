@@ -1,0 +1,25 @@
+
+image:
+  repository: bundasmanu/kamailio-db
+  tag: latest
+  pullPolicy: Always
+
+env_vars:
+  kamailio_sql_scripts_to_run: standard-create.sql,htable-create.sql,auth_db-create.sql,domain-create.sql,usrloc-create.sql,dialog-create.sql,dispatcher-create.sql,secfilter-create.sql,rtpengine-create.sql
+  custom_sql_scripts_to_run: domain_inserts.sql,custom_changes_subscriber.sql,ht_params.sql,ht_carrier_dids.sql,dispatcher_inserts.sql,secfilter_inserts.sql,rtpengine_inserts.sql
+  ## fake data for CI purposes only
+  postgres_user: fake
+  postgres_password: fake
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+persistence:
+  enabled: true
+  size: 1Gi
+  accessMode: ReadWriteOnce
