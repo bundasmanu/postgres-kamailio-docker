@@ -44,7 +44,7 @@ jobs:
           helm upgrade --install kamailio-db helm/kamailio-db \
           --namespace kamailio-db \
           --create-namespace \
-          --atomic \
+          --rollback-on-failure \
           --wait \
           --timeout 90s
 

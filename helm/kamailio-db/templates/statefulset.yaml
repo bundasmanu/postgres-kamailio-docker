@@ -49,11 +49,6 @@ spec:
               mountPath: /etc/postgresql/pg_hba.conf
               subPath: pg_hba.conf
 
-          volumes:
-            - name: pg_hba_config
-              ConfigMap:
-                name: kamailio-db-pg-config
-
           readinessProbe:
             exec:
               command: ["pg_isready", "-U", "{{ .Values.env_vars.postgres_user }}"]
@@ -66,11 +61,17 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 10
 
+      volumes:
+        - name: pg_hba_config
+          ConfigMap:
+            name: kamailio-db-pg-config
+
   volumeClaimTemplates:
     - metadata:
         name: data
-      accessModes:
-        - {{ .Values.persistence.accessMode }}
-      resources:
-        requests:
-          storage: {{ .Values.persistence.size }}
+      spec:
+        accessModes:
+          - {{ .Values.persistence.accessMode }}
+        resources:
+          requests:
+            storage: {{ .Values.persistence.size }}
