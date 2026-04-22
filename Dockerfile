@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM postgres:17-alpine
 
 ARG KAM_BRANCH
 
@@ -18,4 +18,5 @@ COPY ./custom_scripts/ /scripts
 # Filter, clean and sort the SQL scripts based on KAMAILIO_SQL_SCRIPTS_TO_RUN and CUSTOM_SQL_SCRIPTS_TO_RUN vars
 COPY entrypoint.sh .
 
-ENTRYPOINT [ "./entrypoint.sh" ]
+ENTRYPOINT ["bash", "entrypoint.sh"]
+CMD ["postgres", "-c", "hba_file=/etc/postgresql/pg_hba.conf", "-c", "listen_addresses=*"]

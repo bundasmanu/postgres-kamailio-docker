@@ -71,11 +71,11 @@ sort_sql_files() {
     rm -f /scripts/*
 
     # Move Kamailio scripts first
-    mv /scripts_sorted_kamailio/* /scripts/
+    mv /scripts_sorted_kamailio/* /docker-entrypoint-initdb.d/
     rmdir /scripts_sorted_kamailio
 
     # Then move custom scripts
-    mv /scripts_sorted_custom/* /scripts/
+    mv /scripts_sorted_custom/* /docker-entrypoint-initdb.d/
     rmdir /scripts_sorted_custom
 }
 
@@ -84,3 +84,5 @@ sort_sql_files
 
 # Copy Kamailio SQL templates into mounted volume
 cp -rp /usr/local/src/kamailio/utils/kamctl/postgres/* /all_postgres_db_scripts/
+
+exec docker-entrypoint.sh "$@"
