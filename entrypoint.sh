@@ -83,7 +83,7 @@ remove_unneeded_sql_scripts
 sort_sql_files
 
 # Copy Kamailio SQL templates into mounted volume
-mkdir -p all_postgres_db_scripts ## not needed for compose, but needed for k8s
+mkdir -p /all_postgres_db_scripts ## not needed for compose, but needed for k8s
 cp -rp /usr/local/src/kamailio/utils/kamctl/postgres/* /all_postgres_db_scripts/
 
 exec docker-entrypoint.sh "$@"
