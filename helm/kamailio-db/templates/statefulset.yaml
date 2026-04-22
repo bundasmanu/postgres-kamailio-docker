@@ -45,7 +45,7 @@ spec:
             - name: data
               mountPath: /var/lib/postgresql/data
 
-            - name: pg_hba_config
+            - name: pg-hba-config
               mountPath: /etc/postgresql/pg_hba.conf
               subPath: pg_hba.conf
 
@@ -62,7 +62,7 @@ spec:
             periodSeconds: 10
 
       volumes:
-        - name: pg_hba_config
+        - name: pg-hba-config
           configMap:
             name: kamailio-db-pg-config
 
