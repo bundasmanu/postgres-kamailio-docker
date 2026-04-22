@@ -58,8 +58,8 @@ jobs:
         run: |
           POD=$(kubectl get pods -n kamailio-db -l app=kamailio-db -o jsonpath='{.items[0].metadata.name}')
 
-          kubectl exec -n kamailio-db "$POD" -- pg_isready -U postgres
-          kubectl exec -n kamailio-db "$POD" -- psql -U postgres -c "SELECT 1;"
+          kubectl exec -n kamailio-db "$POD" -- pg_isready -U fake
+          kubectl exec -n kamailio-db "$POD" -- psql -U fake -c -d kamailio "SELECT 1;"
 
       - name: Debug on failure
         if: failure()

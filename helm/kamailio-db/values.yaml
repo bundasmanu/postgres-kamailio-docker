@@ -10,6 +10,7 @@ env_vars:
   ## fake data for CI purposes only
   postgres_user: fake
   postgres_password: fake
+  postgres_db: kamailio
 
 resources:
   requests:
