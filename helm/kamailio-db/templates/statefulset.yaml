@@ -63,7 +63,7 @@ spec:
 
       volumes:
         - name: pg_hba_config
-          ConfigMap:
+          configMap:
             name: kamailio-db-pg-config
 
   volumeClaimTemplates:
