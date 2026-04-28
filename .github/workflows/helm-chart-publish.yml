@@ -32,6 +32,7 @@ jobs:
           helm package ./helm/kamailio-db
 
       - name: Get chart version
+        id: vars
         run: |
           VERSION=$(yq e '.version' ./helm/kamailio-db/Chart.yaml)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
