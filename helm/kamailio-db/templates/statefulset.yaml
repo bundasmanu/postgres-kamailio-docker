@@ -68,6 +68,7 @@ spec:
           configMap:
             name: kamailio-db-pg-config
 
+{{- if .Values.persistence.enabled }}
   volumeClaimTemplates:
     - metadata:
         name: data
@@ -77,3 +78,8 @@ spec:
         resources:
           requests:
             storage: {{ .Values.persistence.size }}
+{{- else }}
+  volumes:
+    - name: data
+      emptyDir: {}
+{{- end }}
