@@ -1,4 +1,21 @@
 
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'sip_route') THEN
+        CREATE TYPE sip_route AS ENUM ('auth', 'internal', 'dialog', 'location', 'inbound', 'outbound', 'loopback');
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'sip_method') THEN
+        CREATE TYPE sip_method AS ENUM ('INVITE','ACK', 'BYE', 'CANCEL', 'OPTIONS', 'REGISTER', 'PRACK', 'SUBSCRIBE', 'NOTIFY', 'PUBLISH', 'INFO', 'REFER', 'MESSAGE', 'UPDATE');
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'sip_req_type') THEN
+        CREATE TYPE sip_req_type AS ENUM ('request', 'reply');
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'sip_cond_key') THEN
+        CREATE TYPE sip_cond_key AS ENUM ('domain', 'user', 'gateway', 'req-uri', 'from-uri', 'to-uri', 'source-ip');
+    END IF;
+END$$;
+
+
 CREATE TABLE IF NOT EXISTS dialplan (
     id          SERIAL PRIMARY KEY NOT NULL,
     dpid        INTEGER            NOT NULL,
