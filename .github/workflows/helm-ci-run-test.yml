@@ -37,7 +37,7 @@ jobs:
       - name: Template chart
         run: |
           helm template kamailio-db helm/kamailio-db \
-            --namespace kamailio-db
+            --namespace kamailio-db --set persistence.enabled=false
 
       - name: Helm install
         run: |
@@ -46,6 +46,7 @@ jobs:
             --create-namespace \
             --wait \
             --timeout 90s \
+            --set persistence.enabled=false
             --debug
 
       - name: Rollout status check
