@@ -60,7 +60,8 @@ jobs:
 
           kubectl exec -n kamailio-db "$POD" -- pg_isready -U fake
           kubectl exec -n kamailio-db "$POD" -- psql -U fake -d kamailio -c "SELECT 1;"
-          kubectl exec -n kamailio-db "$POD" -- psql -U fake -d kamailio -c "SELECT count(*) FROM version;"
+          kubectl exec -n kamailio-db "$POD" -- psql -U fake -d kamailio -c "\dt"
+          kubectl exec -n kamailio-db "$POD" -- psql -U fake -d kamailio -c "\dv"
 
       - name: Debug on failure
         if: failure()
