@@ -46,7 +46,7 @@ jobs:
             --create-namespace \
             --wait \
             --timeout 90s \
-            --set persistence.enabled=false
+            --set persistence.enabled=false \
             --debug
 
       - name: Rollout status check
