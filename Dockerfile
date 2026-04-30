@@ -6,6 +6,9 @@ WORKDIR /usr/local/src
 
 RUN apk update && apk add git bash
 
+# Make musl DNS resolution stable in Kubernetes
+ENV RES_OPTIONS="ndots:1 attempts:5 timeout:2"
+
 ## Fetch kamailio SQL scripts
 RUN git clone https://github.com/kamailio/kamailio.git --branch=${KAM_BRANCH} kamailio
 
