@@ -1,4 +1,7 @@
 
+CREATE EXTENSION IF NOT EXISTS citext;
+COMMENT ON EXTENSION citext IS 'data type for case-insensitive character strings';
+
 DO $$
 BEGIN
     IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'sip_route') THEN
