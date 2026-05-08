@@ -19,3 +19,6 @@ CREATE OR REPLACE  VIEW dispatcher_webrtc_gateway AS
 SELECT *
 FROM dispatcher
 WHERE attrs ~ '(^|;)view=[^;]*\mwebrtc_gateway\M';
+
+INSERT INTO version (table_name, table_version) values ('dispatcher_registrar','4');
+INSERT INTO version (table_name, table_version) values ('dispatcher_webrtc_gateway','4');
