@@ -7,5 +7,15 @@
 
 -- INSERT INTO dispatcher (setid, destination, flags, priority, attrs, description) values(2, 'sip:172.25.0.13:5060', 0, 0, 'type=internal', 'Internal B');
 
-INSERT INTO dispatcher (setid, destination, flags, priority, attrs, description) values(1, 'sip:registrar-server.kamailio.svc.cluster.local:5060', 0, 0, 'sockname=lan-internal', 'Registrar Server Pool');
-INSERT INTO dispatcher (setid, destination, flags, priority, attrs, description) values(3, 'sip:webrtc-gateway.kamailio.svc.cluster.local:5060', 0, 0, 'sockname=lan-internal', 'WebRTC Gateway Pool');
+INSERT INTO dispatcher (setid, destination, flags, priority, attrs, description) values(1, 'sip:registrar-server.kamailio.svc.cluster.local:5060', 0, 0, 'view=webrtc_gateway;sockname=lan-internal', 'Registrar Server Pool');
+INSERT INTO dispatcher (setid, destination, flags, priority, attrs, description) values(3, 'sip:webrtc-gateway.kamailio.svc.cluster.local:5060', 0, 0, 'view=registrar;sockname=lan-internal', 'WebRTC Gateway Pool');
+
+CREATE VIEW dispatcher_registrar AS
+SELECT *
+FROM dispatcher
+WHERE attrs ~ '(^|;)view=[^;]*\mregistrar\M';
+
+CREATE VIEW dispatcher_webrtc_gateway AS
+SELECT *
+FROM dispatcher
+WHERE attrs ~ '(^|;)view=[^;]*\mwebrtc_gateway\M';
