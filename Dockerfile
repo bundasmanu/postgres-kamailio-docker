@@ -22,4 +22,4 @@ COPY ./custom_scripts/ /scripts
 COPY entrypoint.sh .
 
 ENTRYPOINT ["bash", "entrypoint.sh"]
-CMD ["postgres", "-c", "hba_file=/etc/postgresql/pg_hba.conf", "-c", "listen_addresses=*"]
+CMD ["postgres", "-c", "hba_file=/etc/postgresql/pg_hba.conf", "-c", "listen_addresses=*", "-c", "max_connections=200"]
