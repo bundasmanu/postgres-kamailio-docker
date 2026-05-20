@@ -7,10 +7,10 @@
 
 -- INSERT INTO dispatcher (setid, destination, flags, priority, attrs, description) values(2, 'sip:172.25.0.13:5060', 0, 0, 'type=internal', 'Internal B');
 
-INSERT INTO dispatcher (setid, destination, flags, priority, attrs, description) values(1, 'sip:registrar-server.kamailio.svc.cluster.local:5060', 0, 0, 'view=webrtc_gateway;sockname=lan-internal', 'Registrar Server Pool');
-INSERT INTO dispatcher (setid, destination, flags, priority, attrs, description) values(2, 'sip:kamailio-core.kamailio.svc.cluster.local:5060', 0, 0, 'view=webrtc_gateway,b2bua;sockname=lan-internal', 'Kamailio Core Pool');
-INSERT INTO dispatcher (setid, destination, flags, priority, attrs, description) values(3, 'sip:webrtc-gateway.kamailio.svc.cluster.local:5060', 0, 0, 'view=registrar,core;sockname=lan-internal', 'WebRTC Gateway Pool');
-INSERT INTO dispatcher (setid, destination, flags, priority, attrs, description) values(4, 'sip:b2bua.b2bua.svc.cluster.local:5060', 0, 0, 'view=core;sockname=lan-internal', 'B2BUA Pool');
+INSERT INTO dispatcher (setid, destination, flags, priority, attrs, description) values(1, 'sip:registrar-server.kamailio.svc.cluster.local:5060', 0, 0, 'sockname=lan-internal;view=webrtc_gateway', 'Registrar Server Pool');
+INSERT INTO dispatcher (setid, destination, flags, priority, attrs, description) values(2, 'sip:kamailio-core.kamailio.svc.cluster.local:5060', 0, 0, 'sockname=lan-internal;view=webrtc_gateway,b2bua', 'Kamailio Core Pool');
+INSERT INTO dispatcher (setid, destination, flags, priority, attrs, description) values(3, 'sip:webrtc-gateway.kamailio.svc.cluster.local:5060', 0, 0, 'sockname=lan-internal;view=registrar,core', 'WebRTC Gateway Pool');
+INSERT INTO dispatcher (setid, destination, flags, priority, attrs, description) values(4, 'sip:b2bua.b2bua.svc.cluster.local:5060', 0, 0, 'sockname=lan-internal;view=core', 'B2BUA Pool');
 
 CREATE OR REPLACE VIEW dispatcher_registrar AS
 SELECT *
